@@ -5,13 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.dictionaryapp.feature_dictionary.presentaion.WordInfoItem
 import com.example.dictionaryapp.feature_dictionary.presentaion.WordInfoViewModel
@@ -54,10 +59,25 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 .padding(16.dp)
                         ) {
+                            // Heading at the top
+                            Text(
+                                text = " Dictionary",
+                                fontSize = 32.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF0066CC),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 16.dp)
+                            )
+
+                            // Search Bar
                             TextField(
                                 value = viewModel.searchQuery.value,
                                 onValueChange = viewModel::onSearch,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp)
+                                    .background(Color.White, shape = RoundedCornerShape(8.dp)),
                                 placeholder = {
                                     Text(text = "Search...")
                                 }
@@ -73,7 +93,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                     WordInfoItem(wordInfo = wordInfo)
                                     if (i < state.wordInfoItems.size - 1) {
-                                        Divider()
+                                        Divider(color = Color.Gray, thickness = 1.dp)
                                     }
                                 }
                             }
